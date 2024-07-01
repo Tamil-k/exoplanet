@@ -47,7 +47,7 @@ func (e *Exoplanet) GetExoplanetByID(id string) (*models.Exoplanet, error) {
 func (e *Exoplanet) UpdateExoplanet(id string, exoplanet models.Exoplanet) error {
 
 	if err := storage.Store.UpdateExoplanet(id, exoplanet); err != nil {
-
+		return err
 	}
 	return nil
 }
@@ -76,15 +76,4 @@ func (e *Exoplanet) EstimateFuel(id string, crewCapacity int) (*models.FuelEstim
 func CalculateFuel(crewCapacity int, exoplanet *models.Exoplanet) float64 {
 	g := CalculateGravity(exoplanet)
 	return float64(exoplanet.Distance) / (g * g) * float64(crewCapacity)
-}
-
-func CalculateGravity(exoplanet *models.Exoplanet) float64 {
-	var gravity float64
-	switch exoplanet.Type {
-	case models.GasGiant:
-		gravity = 0.5 / (exoplanet.Radius * exoplanet.Radius)
-	case models.Terrestrial:
-		gravity = exoplanet.Mass / (exoplanet.Radius * exoplanet.Radius)
-	}
-	return gravity
 }

@@ -17,10 +17,6 @@ type Exoplanet struct {
 	Type        ExoplanetType `json:"type,omitempty"`
 }
 
-type FuelEstimationRequest struct {
-	CrewCapacity int `json:"crewCapacity"`
-}
-
 type FuelEstimationResponse struct {
 	FuelUnits float64 `json:"fuelUnits"`
 }
